@@ -13,7 +13,9 @@ const Projects = () => {
           "https://portfolio-backend-30mp.onrender.com/api/v1/get/user/65b3a22c01d900e96c4219ae"
         );
         const data = await response.json();
-        setProjectsData(data.user.projects);
+        // Filter projects data based on the "enabled" field
+        const filteredProjectsData = data.user.projects.filter(project => project.enabled);
+        setProjectsData(filteredProjectsData);
       } catch (error) {
         console.error("Error fetching projects data:", error);
       }
@@ -23,7 +25,11 @@ const Projects = () => {
   }, []);
 
   if (!projectsData) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="spinner border-4 border-t-4 border-gray-200 rounded-full h-12 w-12"></div>
+      </div>
+    );
   }
 
   return (

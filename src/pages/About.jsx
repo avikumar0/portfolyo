@@ -16,7 +16,13 @@ const About = () => {
           "https://portfolio-backend-30mp.onrender.com/api/v1/get/user/65b3a22c01d900e96c4219ae"
         );
         const data = await response.json();
-        setUserData(data.user);
+        // Filter skills, timeline, and other sections based on the "enabled" field
+        const filteredUserData = {
+          ...data.user,
+          skills: data.user.skills.filter(skill => skill.enabled),
+          timeline: data.user.timeline.filter(experience => experience.enabled),
+        };
+        setUserData(filteredUserData);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -26,8 +32,13 @@ const About = () => {
   }, []);
 
   if (!userData) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="spinner border-4 border-t-4 border-gray-200 rounded-full h-12 w-12"></div>
+      </div>
+    );
   }
+  
 
   const { about, timeline, skills } = userData;
 
@@ -54,7 +65,6 @@ const About = () => {
             <div className="block-container w-20 h-20" key={skill.name}>
               <div className="btn-back rounded-xl" />
               <div className="btn-front rounded-xl flex justify-center items-center">
-                {/* Check if image exists before rendering */}
                 {skill.image && skill.image.url && (
                   <img
                     src={skill.image.url}
@@ -84,7 +94,6 @@ const About = () => {
                 iconStyle={{ background: "#6f6f6f" }}
                 icon={
                   <div className="flex justify-center items-center w-full h-full">
-                    {/* Check if icon exists before rendering */}
                     {experience.icon && experience.icon.url && (
                       <img
                         src={experience.icon.url}
