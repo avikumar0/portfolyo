@@ -60,7 +60,6 @@ const About = () => {
         <h3 className="subhead-text">My Skills</h3>
 
         <div className="mt-16 flex flex-wrap gap-12">
-          {/* Render skills dynamically */}
           {skills.map((skill) => (
             <div className="block-container w-20 h-20" key={skill.name}>
               <div className="btn-back rounded-xl" />
@@ -86,7 +85,6 @@ const About = () => {
 
         <div className="mt-12 flex">
           <VerticalTimeline>
-            {/* Render timeline dynamically */}
             {timeline.map((experience) => (
               <VerticalTimelineElement
                 key={experience._id}
@@ -123,7 +121,6 @@ const About = () => {
                 </div>
 
                 <ul className="my-5 list-disc ml-5 space-y-2">
-                  {/* Render bullet points dynamically */}
                   {experience.bulletPoints.map((point, index) => (
                     <li
                       key={`experience-point-${index}`}

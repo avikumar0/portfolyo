@@ -14,7 +14,9 @@ const Projects = () => {
         );
         const data = await response.json();
         // Filter projects data based on the "enabled" field
-        const filteredProjectsData = data.user.projects.filter(project => project.enabled);
+        const filteredProjectsData = data.user.projects.filter(
+          (project) => project.enabled
+        );
         setProjectsData(filteredProjectsData);
       } catch (error) {
         console.error("Error fetching projects data:", error);
@@ -55,7 +57,6 @@ const Projects = () => {
             <div className="block-container w-12 h-12">
               <div className={`btn-back rounded-xl ${project.theme}`} />
               <div className="btn-front rounded-xl flex justify-center items-center">
-                {/* Check if icon exists before rendering */}
                 {project.image && project.image.url && (
                   <img
                     src={project.image.url}
@@ -71,6 +72,17 @@ const Projects = () => {
                 {project.title}
               </h4>
               <p className="mt-2 text-slate-500">{project.description}</p>
+              <div className="mt-2 flex flex-wrap gap-2 font-poppins">
+                {/* Display tech stacks */}
+                {project.techStack.map((tech, index) => (
+                  <span
+                    key={index}
+                    className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm shadow-md"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
               <div className="mt-5 flex items-center gap-2 font-poppins">
                 <Link
                   to={project.liveurl}
